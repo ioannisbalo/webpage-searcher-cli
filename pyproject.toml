@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "webpage-searcher-cli"
+description = ""
+version = "0.0.0"
+readme = "README.md"
+authors = ["john-blmns"]
+
+[tool.poetry.dependencies]
+python = ">=3.9,<4"
+requests = "2.28.2"
+webpage-searcher = "0.0.2"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "7.2.1"
