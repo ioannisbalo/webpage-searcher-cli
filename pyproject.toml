@@ -9,6 +9,7 @@ authors = ["john-blmns"]
 python = ">=3.9,<4"
 requests = "2.28.2"
 webpage-searcher = "0.0.2"
+rich = "^13.3.1"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "7.2.1"
