@@ -403,4 +403,4 @@ beautifulsoup4 = "4.11.2"
 [metadata]
 lock-version = "2.0"
 python-versions = ">=3.9,<4"
-content-hash = "02ba7e6c23f4f418ce981fc3c0a5126b9b0f656fc0e9f19413d5e1b21c378fa9"
+content-hash = "37060ba642a4cd7bbebd5110c3b6293071e44dbc73ba36a479781da45cf4d9a1"
