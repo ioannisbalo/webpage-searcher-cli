@@ -14,10 +14,11 @@ def main() -> None:
     parser.add_argument("-p", "--phrase", type=str, help="Default phrase to be searched for in the website's text")
     parser.add_argument("-i", "--input-file", type=str, help="Path to .csv file that contains webpages, urls and phrases")
     parser.add_argument("-o", "--output-file", type=str, help="Path to new .csv file to write the results of the search in")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Include the full results in the output")
 
     args = parser.parse_args()
 
-    cli_args = CliArguments(args.webpage, args.phrase, args.url, args.input_file, args.output_file)
+    cli_args = CliArguments(args.webpage, args.phrase, args.url, args.input_file, args.output_file, args.verbose)
     settings = Settings(cli_args)
     app = settings.get_app()
     app.run()
