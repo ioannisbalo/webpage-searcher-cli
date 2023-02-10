@@ -6,13 +6,17 @@ from src.output.output import Output
 
 
 class CsvOutput(Output):
-    def __init__(self, file: str) -> None:
+    def __init__(self, verbose: bool, file: str) -> None:
+        self._verbose = verbose
         self._file = file
 
     def write(self, results: list[Results]) -> None:
         with open(self._file, "w", encoding='UTF8') as f:
             self._writer = csv.writer(f)
-            self._writer.writerow(["Webpage", "Phrase", "Url", "Tag", "Link", "NoFollow", "Xpath", "Text", "Context"])
+            if self._verbose:
+                self._writer.writerow(["Webpage", "Phrase", "Url", "Tag", "Link", "NoFollow", "Xpath", "Text", "Context"])
+            else:
+                self._writer.writerow(["Webpage", "Phrase", "Url", "Exists"])
             for webpage_results in results:
                 self._write_webpage_results(webpage_results)
 
@@ -23,8 +27,11 @@ class CsvOutput(Output):
             self._write_item_results(webpage_results.url_results, webpage_results.webpage, None, webpage_results.url)
 
     def _write_item_results(self, results: list[Result], webpage: str, phrase: str, url: str) -> None:
-        for result in results:
-            self._write_result(result, webpage, phrase, url)
+        if self._verbose:
+            for result in results:
+                self._write_result(result, webpage, phrase, url)
+        else:
+            self._writer.writerow([webpage, phrase, url, str(len(results) > 0)])
 
     def _write_result(self, result: Result, webpage: str, phrase: str, url: str) -> None:
         self._writer.writerow([

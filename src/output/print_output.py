@@ -7,18 +7,22 @@ from src.output.output import Output
 
 
 class PrintOutput(Output):
-    def __init__(self) -> None:
+    def __init__(self, verbose: bool) -> None:
+        self._verbose = verbose
         self._console = Console()
         self._table = Table(show_header=True, header_style="bold magenta")
         self._table.add_column("Webpage", style="green")
         self._table.add_column("Phrase", style="green")
         self._table.add_column("Url", style="green")
-        self._table.add_column("Tag")
-        self._table.add_column("Link")
-        self._table.add_column("NoFollow")
-        self._table.add_column("Xpath")
-        self._table.add_column("Text")
-        self._table.add_column("Context")
+        if self._verbose:
+            self._table.add_column("Tag")
+            self._table.add_column("Link")
+            self._table.add_column("NoFollow")
+            self._table.add_column("Xpath")
+            self._table.add_column("Text")
+            self._table.add_column("Context")
+        else:
+            self._table.add_column("Exists")
 
     def write(self, results: list[Results]) -> None:
         for webpage_results in results:
@@ -32,8 +36,16 @@ class PrintOutput(Output):
             self._write_item_results(webpage_results.url_results, webpage_results.webpage, None, webpage_results.url)
 
     def _write_item_results(self, results: list[Result], webpage: str, phrase: str, url: str) -> None:
-        for result in results:
-            self._write_result(result, webpage, phrase, url)
+        if self._verbose:
+            for result in results:
+                self._write_result(result, webpage, phrase, url)
+        else:
+            self._table.add_row(
+                self._format_output_string(webpage, True),
+                self._format_output_string(phrase, True),
+                self._format_output_string(url, True),
+                str(len(results) > 0),
+            )
 
     def _write_result(self, result: Result, webpage: str, phrase: str, url: str) -> None:
         self._table.add_row(

@@ -13,9 +13,9 @@ class Settings:
             inputs = [Input({"webpage": args.webpage, "url": args.url, "phrase": args.phrase})]
 
         if args.output_file:
-            output = CsvOutput(args.output_file)
+            output = CsvOutput(args.verbose, args.output_file)
         else:
-            output = PrintOutput()
+            output = PrintOutput(args.verbose)
 
         self.app = App(inputs, args.url, args.phrase, output)
 

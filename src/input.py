@@ -13,11 +13,6 @@ class Input:
 
 
 class CliArguments:
-    webpage: Optional[str]
-    input_file: Optional[str]
-    phrase: Optional[str]
-    url: Optional[str]
-
     def __init__(
         self,
         webpage: Optional[str],
@@ -25,6 +20,7 @@ class CliArguments:
         url: Optional[str],
         input_file: Optional[str],
         output_file: Optional[str],
+        verbose: bool,
     ) -> None:
         if input_file and webpage:
             print("Both input csv file and webpage url provided, webpage url will be ignored")
@@ -37,3 +33,4 @@ class CliArguments:
         self.url = url
         self.input_file = input_file
         self.output_file = output_file
+        self.verbose = verbose
